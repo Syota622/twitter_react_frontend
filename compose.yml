@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  frontend:
+    container_name: twitter-clone-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:3000" # ホストのポートを8081に変更
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
