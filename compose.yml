@@ -9,7 +9,7 @@ services:
       - ".:/app" # ローカルのソースコードをコンテナの/appディレクトリにマウント
       - "/app/node_modules" # node_modulesディレクトリを匿名ボリュームとして扱い、オーバーライドを防ぐ
     ports:
-      - "8081:3000" # ホストのポートを8081に変更
+      - "3000:3000"
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # ファイルシステムのイベントが正しく伝達されるように設定
