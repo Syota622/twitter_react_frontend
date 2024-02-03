@@ -30,23 +30,18 @@ const SignupForm = () => {
 
   // フォームの入力値が変更されたときに呼び出される関数
   const handleChange = (e) => {
-    console.log(e);
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value }); // formDataのstateを更新によってフォームの入力値を更新
   };
 
   // フォームが送信されたときに呼び出される関数
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // フォームのデフォルトの送信処理をキャンセル
     try {
-      const response = await axios.post(
-        "http://localhost:8080/signup",
-        formData
-      );
-      console.log(response.data);
-      alert("Signup successful!"); // <-- サインアップ成功時のアラート
+      await axios.post("http://localhost:8080/signup", formData); // サインアップリクエストを送信
+      alert("Signup successful!"); // サインアップ成功時のアラート
     } catch (error) {
       console.error("サインアップエラー:", error.response.data);
-      alert("Signup failed!"); // <-- サインアップ失敗時のアラート
+      alert("Signup failed!"); // サインアップ失敗時のアラート
     }
   };
 
