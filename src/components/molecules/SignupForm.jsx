@@ -30,7 +30,8 @@ const SignupForm = () => {
 
   // フォームの入力値が変更されたときに呼び出される関数
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value }); // formDataのstateを更新によってフォームの入力値を更新
+    const { name, value } = e.target; // e.targetからnameとvalueを抽出(<input type="email" name="email" placeholder="メールアドレス" class="sc-beySPh dmCSEs" value="moko1@gmail.com">)
+    setFormData({ ...formData, [name]: value }); // 抽出したnameとvalueを使用
   };
 
   // フォームが送信されたときに呼び出される関数
