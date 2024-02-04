@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import InputField from "../atoms/InputField"; // 修正されたインポート
 import Button from "../atoms/Button";
 import styled from "styled-components";
-import axios from "axios";
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 
 const Form = styled.form`
   max-width: 300px;
@@ -30,7 +30,7 @@ const SignupForm = () => {
 
   // フォームの入力値が変更されたときに呼び出される関数
   const handleChange = (e) => {
-    const { name, value } = e.target; // e.targetからnameとvalueを抽出(<input type="email" name="email" placeholder="メールアドレス" class="sc-beySPh dmCSEs" value="moko1@gmail.com">)
+    const { name, value } = e.target; // e.targetからnameとvalueを抽出
     setFormData({ ...formData, [name]: value }); // 抽出したnameとvalueを使用
   };
 
@@ -64,7 +64,7 @@ const SignupForm = () => {
         name="password"
         value={formData.password}
         onChange={handleChange}
-        placeholder="パースワード"
+        placeholder="パスワード"
       />
 
       <Label htmlFor="email">Email</Label>
