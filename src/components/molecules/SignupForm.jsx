@@ -54,7 +54,7 @@ const SignupForm = () => {
         name="username"
         value={formData.username}
         onChange={handleChange}
-        placeholder="Enter username"
+        placeholder="ユーザー名"
       />
 
       <Label htmlFor="password">Password</Label>
@@ -63,7 +63,7 @@ const SignupForm = () => {
         name="password"
         value={formData.password}
         onChange={handleChange}
-        placeholder="Enter password"
+        placeholder="パースワード"
       />
 
       <Label htmlFor="email">Email</Label>
@@ -72,7 +72,7 @@ const SignupForm = () => {
         name="email"
         value={formData.email}
         onChange={handleChange}
-        placeholder="Enter email"
+        placeholder="メールアドレス"
       />
 
       <Button type="submit">Sign Up</Button>
