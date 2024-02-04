@@ -10,8 +10,6 @@ const Input = styled.input`
 `;
 
 // InputFieldコンポーネントを作成
-const InputField = ({ type, name, value, onChange }) => (
-  <Input type={type} name={name} value={value} onChange={onChange} />
-);
+const InputField = (props) => <Input {...props} />;
 
 export default InputField;
