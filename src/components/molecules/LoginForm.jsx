@@ -33,11 +33,8 @@ const LoginForm = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // フォームのデフォルトの送信処理をキャンセル
     try {
-      const response = await axios.post(
-        "http://localhost:8080/login",
-        formData
-      );
-      if (response.data && response.data.token) {
+      const response = await axios.post("/login", formData);
+      if (response && response.data) {
         // レスポンスとそのdataプロパティの存在を確認
         localStorage.setItem("token", response.data.token); // セキュリティトークンをlocalStorageに保存
         onLoginSuccess(); // ログイン成功時の親コンポーネントのコールバック関数を呼び出す
