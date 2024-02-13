@@ -7,12 +7,9 @@ import axios from "../../utils/axios"; // カスタムインスタンスをイ�
 
 const Form = styled.form`
   max-width: 300px;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
 `;
 
 const Label = styled.label`
@@ -58,15 +55,6 @@ const SignupForm = () => {
         placeholder="ユーザー名"
       />
 
-      <Label htmlFor="password">Password</Label>
-      <InputField
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="パスワード"
-      />
-
       <Label htmlFor="email">Email</Label>
       <InputField
         type="email"
@@ -74,6 +62,15 @@ const SignupForm = () => {
         value={formData.email}
         onChange={handleChange}
         placeholder="メールアドレス"
+      />
+
+      <Label htmlFor="password">Password</Label>
+      <InputField
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+        placeholder="パスワード"
       />
 
       <Button type="submit">Sign Up</Button>
