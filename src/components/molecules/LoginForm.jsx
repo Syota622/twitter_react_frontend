@@ -37,7 +37,7 @@ const LoginForm = ({ onLoginSuccess }) => {
         "http://localhost:8080/login",
         formData
       );
-      if (response && response.data) {
+      if (response.data && response.data.token) {
         // レスポンスとそのdataプロパティの存在を確認
         localStorage.setItem("token", response.data.token); // セキュリティトークンをlocalStorageに保存
         onLoginSuccess(); // ログイン成功時の親コンポーネントのコールバック関数を呼び出す
@@ -81,10 +81,10 @@ export default LoginForm;
 
 // console.log(response.data);
 // {
-//   "message":"ログインに成功しました",
-//   "request_data":{
-//     "email":"mokomoko@gmail.com","password":"Passw0rd"
-//   }
-// }{
-//   "token":"3730bc44-3cc4-405c-8ea6-b847e7436641"
+//   "message": "ログインに成功しました",
+//   "request_data": {
+//       "email": "mokomoko@gmail.com",
+//       "password": "Passw0rd"
+//   },
+//   "token": "088efa14-e9cd-4eaf-9d3d-e753eb99e9b3"
 // }

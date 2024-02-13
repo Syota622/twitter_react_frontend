@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SignupForm from "./components/molecules/SignupForm";
 import LoginForm from "./components/molecules/LoginForm";
+import TweetForm from "./components/molecules/TweetForm";
 import TweetsList from "./components/pages/TweetsList";
 import styled from "styled-components";
 
@@ -32,7 +33,12 @@ function App() {
           <LoginForm onLoginSuccess={handleLoginSuccess} />
         </AuthContainer>
       ) : (
-        <TweetsList />
+        <>
+          <AuthContainer>
+            <TweetForm />
+            <TweetsList />
+          </AuthContainer>
+        </>
       )}
     </>
   );
