@@ -1,6 +1,6 @@
 // src/components/organisms/SignupForm.js
 import React, { useState } from "react";
-import InputField from "../atoms/InputField"; // 修正されたインポート
+import InputField from "../atoms/InputField";
 import Button from "../atoms/Button";
 import styled from "styled-components";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート

@@ -1,6 +1,6 @@
 // src/components/TweetForm.jsx
 import React, { useState } from "react";
-import axios from "axios"; // axiosをインポート
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import Button from "../atoms/Button";
 
 const TweetForm = () => {
