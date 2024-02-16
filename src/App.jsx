@@ -11,6 +11,7 @@ const AuthContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
+  gap: 50px;
 `;
 
 // ログイン後のメインレイアウトスタイル
