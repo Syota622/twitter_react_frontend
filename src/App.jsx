@@ -25,7 +25,6 @@ function App() {
 
   return (
     <>
-      <h1>Welcome to Twitter Clone</h1>
       {/* ログイン前とログイン後 */}
       {!isLoggedIn ? (
         <AuthContainer>

@@ -35,7 +35,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // フォームのデフォルトの送信処理をキャンセル
     try {
-      await axios.post("http://localhost:8080/signup", formData); // サインアップリクエストを送信
+      await axios.post("/signup", formData); // サインアップリクエストを送信
       alert("Signup successful!"); // サインアップ成功時のアラート
     } catch (error) {
       console.error("サインアップエラー:", error.response.data);
