@@ -1,6 +1,6 @@
 // src/components/organisms/SignupForm.js
 import React, { useState } from "react";
-import InputField from "../atoms/InputField"; // 修正されたインポート
+import InputField from "../atoms/InputField";
 import Button from "../atoms/Button";
 import styled from "styled-components";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
@@ -35,7 +35,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // フォームのデフォルトの送信処理をキャンセル
     try {
-      await axios.post("http://localhost:8080/signup", formData); // サインアップリクエストを送信
+      await axios.post("/signup", formData); // サインアップリクエストを送信
       alert("Signup successful!"); // サインアップ成功時のアラート
     } catch (error) {
       console.error("サインアップエラー:", error.response.data);
