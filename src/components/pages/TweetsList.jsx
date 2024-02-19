@@ -1,12 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
-// 仮のツイートデータ
-const dummyTweets = [
-  { id: 1, user: "user1", message: "これは最初のツイートです" },
-  { id: 2, user: "user2", message: "これは別のツイートです" },
-  { id: 3, user: "user3", message: "ツイートは面白いですね！" },
-];
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 
 const TweetContainer = styled.div`
   padding: 10px;
@@ -16,11 +10,34 @@ const TweetContainer = styled.div`
   }
 `;
 
+// ツイート一覧を表示するコンポーネント
 const TweetsList = () => {
+  const [tweets, setTweets] = useState([]);
+
+  // マウント時にツイート一覧を取得
+  useEffect(() => {
+    const fetchTweets = async () => {
+      const token = localStorage.getItem("token"); // ローカルストレージからトークンを取得
+
+      try {
+        const response = await axios.get("http://localhost:8080/tweets", {
+          headers: {
+            Authorization: `Bearer ${token}`, // トークンをヘッダーに含める
+          },
+        });
+        setTweets(response.data.tweets);
+      } catch (error) {
+        console.error("ツイートの取得に失敗しました:", error);
+      }
+    };
+
+    fetchTweets();
+  }, []); // 空の依存配列を渡して、コンポーネントのマウント時にのみ実行されるようにする
+
   return (
     <div>
       <h2>ツイート一覧</h2>
-      {dummyTweets.map((tweet) => (
+      {tweets.map((tweet) => (
         <TweetContainer key={tweet.id}>
           <strong>{tweet.user}</strong>
           <p>{tweet.message}</p>
