@@ -1,4 +1,4 @@
-// src/components/molecules/LoginForm.jsx
+// src/components/organisms/LoginForm.jsx
 import React, { useState } from "react";
 import InputField from "../atoms/InputField";
 import Button from "../atoms/Button";
