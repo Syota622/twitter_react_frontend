@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
-import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 
 const TweetContainer = styled.div`
   padding: 10px;
@@ -10,11 +10,17 @@ const TweetContainer = styled.div`
   }
 `;
 
-// ツイート一覧を表示するコンポーネント
+const TweetImage = styled.img`
+  max-width: 100%; // 画像の幅がコンテナを超えないようにする
+  height: auto; // 画像の高さを自動調整
+  margin-top: 10px; // 画像の上の余白
+`;
+
 const TweetsList = () => {
+  // ツイート一覧を保持するための状態
   const [tweets, setTweets] = useState([]);
 
-  // マウント時にツイート一覧を取得
+  // ツイート一覧を取得する
   useEffect(() => {
     const fetchTweets = async () => {
       const token = localStorage.getItem("token"); // ローカルストレージからトークンを取得
@@ -32,7 +38,7 @@ const TweetsList = () => {
     };
 
     fetchTweets();
-  }, []); // 空の依存配列を渡して、コンポーネントのマウント時にのみ実行されるようにする
+  }, []); // コンポーネントのマウント時にのみ実行
 
   return (
     <div>
@@ -41,6 +47,9 @@ const TweetsList = () => {
         <TweetContainer key={tweet.id}>
           <strong>{tweet.user}</strong>
           <p>{tweet.message}</p>
+          {tweet.image_url.Valid && (
+            <TweetImage src={tweet.image_url.String} alt="Tweet" />
+          )}
         </TweetContainer>
       ))}
     </div>
