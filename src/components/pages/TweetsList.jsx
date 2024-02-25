@@ -11,9 +11,10 @@ const TweetContainer = styled.div`
 `;
 
 const TweetImage = styled.img`
-  max-width: 100%; // 画像の幅がコンテナを超えないようにする
-  height: auto; // 画像の高さを自動調整
-  margin-top: 10px; // 画像の上の余白
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain; // 画像の縦横比を保ちつつ、コンテナ内に収める
+  margin-top: 10px;
 `;
 
 const TweetsList = () => {
