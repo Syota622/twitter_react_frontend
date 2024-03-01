@@ -1,5 +1,6 @@
 // App.jsx
 import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import SignupForm from "./components/organisms/SignupForm";
 import LoginForm from "./components/organisms/LoginForm";
 import Sidebar from "./components/templates/Sidebar";
@@ -28,10 +29,9 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       {!isLoggedIn ? (
         <AuthContainer>
-          {/* サインアップ、ログインフォーム */}
           <SignupForm />
           <LoginForm onLoginSuccess={handleLoginSuccess} />
         </AuthContainer>
@@ -41,7 +41,7 @@ function App() {
           <Content />
         </MainContainer>
       )}
-    </>
+    </Router>
   );
 }
 

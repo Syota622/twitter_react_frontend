@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const TweetContainer = styled.div`
@@ -45,13 +46,18 @@ const TweetsList = () => {
     <div>
       <h2>ツイート一覧</h2>
       {tweets.map((tweet) => (
-        <TweetContainer key={tweet.id}>
-          <strong>{tweet.user}</strong>
-          <p>{tweet.message}</p>
-          {tweet.image_url.Valid && (
-            <TweetImage src={tweet.image_url.String} alt="Tweet" />
-          )}
-        </TweetContainer>
+        <Link
+          to={`/tweets/${tweet.id}`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <TweetContainer key={tweet.id}>
+            <strong>{tweet.user}</strong>
+            <p>{tweet.message}</p>
+            {tweet.image_url.Valid && (
+              <TweetImage src={tweet.image_url.String} alt="Tweet" />
+            )}
+          </TweetContainer>
+        </Link>
       ))}
     </div>
   );
