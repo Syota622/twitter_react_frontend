@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { Routes, Route } from "react-router-dom";
 import TweetsList from "../pages/TweetsList";
+import TweetDetail from "../pages/TweetDetail";
 
-// ContentはSidebarの2倍の幅を取る
 const ContentContainer = styled.div`
   flex: 2;
   padding-left: 20px;
@@ -12,9 +13,11 @@ const ContentContainer = styled.div`
 
 const Content = () => {
   return (
-    // コンテンツ（右側）
     <ContentContainer>
-      <TweetsList />
+      <Routes>
+        <Route path="/tweets/:tweetId" element={<TweetDetail />} />
+        <Route path="/" element={<TweetsList />} />
+      </Routes>
     </ContentContainer>
   );
 };

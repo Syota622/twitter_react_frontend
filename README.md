@@ -3,6 +3,7 @@ npx create-react-app . --use-npm
 
 # npm install
 npm install styled-components axios
+npm install react-router-dom
 
 # docker
 docker compose build

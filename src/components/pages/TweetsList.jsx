@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const TweetContainer = styled.div`
+const TweetContainer = styled(Link)`
+  display: block;
   padding: 10px;
   border-bottom: 1px solid #e1e8ed;
+  text-decoration: none; // リンクの下線を除去
+  color: inherit; // リンクの色を親要素に合わせる
   &:last-child {
     border-bottom: none;
+  }
+  &:hover {
+    background-color: #f8f8f8;
   }
 `;
 
@@ -45,7 +52,7 @@ const TweetsList = () => {
     <div>
       <h2>ツイート一覧</h2>
       {tweets.map((tweet) => (
-        <TweetContainer key={tweet.id}>
+        <TweetContainer to={`/tweets/${tweet.id}`} key={tweet.id}>
           <strong>{tweet.user}</strong>
           <p>{tweet.message}</p>
           {tweet.image_url.Valid && (
