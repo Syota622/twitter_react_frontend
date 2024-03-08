@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import TweetsList from "../pages/TweetsList";
 import TweetDetail from "../pages/TweetDetail";
+import Profile from "../pages/Profile";
 
 const ContentContainer = styled.div`
   flex: 2;
@@ -15,8 +16,12 @@ const Content = () => {
   return (
     <ContentContainer>
       <Routes>
-        <Route path="/tweets/:tweetId" element={<TweetDetail />} />
+        {/* ツイートリスト */}
         <Route path="/" element={<TweetsList />} />
+        {/* ツイート詳細 */}
+        <Route path="/tweets/:tweetId" element={<TweetDetail />} />
+        {/* プロフィール */}
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </ContentContainer>
   );

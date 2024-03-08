@@ -1,8 +1,9 @@
+// Sidebar.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TweetForm from "../organisms/TweetForm";
 
-// SidebarはContentの1/2倍の幅を取る
 const SidebarContainer = styled.div`
   flex: 1;
   max-width: 300px;
@@ -11,13 +12,17 @@ const SidebarContainer = styled.div`
   gap: 10px;
 `;
 
-const Button = styled.button`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: block;
   padding: 10px;
   background-color: #1da1f2;
   color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  text-align: center;
+
   &:hover {
     background-color: #0d8ed9;
   }
@@ -25,13 +30,12 @@ const Button = styled.button`
 
 const Sidebar = () => {
   return (
-    // サイドバー（左側）
     <SidebarContainer>
-      <Button>ホーム</Button>
-      <Button>プロフィール</Button>
-      <Button>メッセージ</Button>
-      <Button>設定</Button>
-      <Button>ログアウト</Button>
+      <StyledLink to="/">ホーム</StyledLink>
+      <StyledLink>メッセージ</StyledLink>
+      <StyledLink>設定</StyledLink>
+      <StyledLink>ログアウト</StyledLink>
+      <StyledLink to="/profile">プロフィール</StyledLink>
       <TweetForm />
     </SidebarContainer>
   );
