@@ -1,5 +1,4 @@
-// src/components/organisms/LoginForm.jsx
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../atoms/InputField";
 import Button from "../atoms/Button";
 import styled from "styled-components";
@@ -37,6 +36,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       if (response && response.data) {
         // レスポンスとそのdataプロパティの存在を確認
         localStorage.setItem("token", response.data.token); // セキュリティトークンをlocalStorageに保存
+        localStorage.setItem("id", response.data.id); // ユーザーIDをlocalStorageに保存
         onLoginSuccess(); // ログイン成功時の親コンポーネントのコールバック関数を呼び出す
       } else {
         // レスポンスが正しくない場合のエラーハンドリング

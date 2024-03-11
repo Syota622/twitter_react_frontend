@@ -1,5 +1,4 @@
-// Sidebar.jsx
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TweetForm from "../organisms/TweetForm";
@@ -28,15 +27,30 @@ const StyledLink = styled(Link)`
   }
 `;
 
+// ユーザーIDをlocalStorageから取得する関数
+const useUserId = () => {
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    if (id) {
+      setUserId(id);
+    }
+  }, []);
+
+  return userId;
+};
+
 const Sidebar = () => {
-  const dummyUserId = "1";
+  const userId = useUserId(); // ログインユーザーのIDを取得
+
   return (
     <SidebarContainer>
       <StyledLink to="/">ホーム</StyledLink>
       <StyledLink>メッセージ</StyledLink>
       <StyledLink>設定</StyledLink>
       <StyledLink>ログアウト</StyledLink>
-      <StyledLink to={`/users/${dummyUserId}`}>プロフィール</StyledLink>
+      {userId && <StyledLink to={`/users/${userId}`}>プロフィール</StyledLink>}
       <TweetForm />
     </SidebarContainer>
   );
