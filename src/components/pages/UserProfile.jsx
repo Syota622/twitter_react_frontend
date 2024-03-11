@@ -1,7 +1,7 @@
-// src/components/pages/Profile.jsx
 import React from "react";
 import styled from "styled-components";
-import UserTweetsList from "../pages/UserTweetsList";
+import { useParams } from "react-router-dom";
+import UserTweetsList from "./UserTweetsList";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -24,7 +24,8 @@ const ProfileImage = styled.img`
   margin-bottom: 20px;
 `;
 
-const Profile = () => {
+const UserProfile = () => {
+  const { userId } = useParams();
   // ダミーデータ、実際にはAPIから取得したデータを使用
   const userProfile = {
     username: "ユーザー名",
@@ -37,9 +38,9 @@ const Profile = () => {
       <ProfileImage src={userProfile.profileImageUrl} alt="プロフィール画像" />
       <Username>{userProfile.username}</Username>
       <Bio>{userProfile.bio}</Bio>
-      <UserTweetsList userId="18" />
+      <UserTweetsList userId={userId} />
     </ProfileContainer>
   );
 };
 
-export default Profile;
+export default UserProfile;

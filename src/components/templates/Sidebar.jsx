@@ -29,13 +29,14 @@ const StyledLink = styled(Link)`
 `;
 
 const Sidebar = () => {
+  const dummyUserId = "1";
   return (
     <SidebarContainer>
       <StyledLink to="/">ホーム</StyledLink>
       <StyledLink>メッセージ</StyledLink>
       <StyledLink>設定</StyledLink>
       <StyledLink>ログアウト</StyledLink>
-      <StyledLink to="/profile">プロフィール</StyledLink>
+      <StyledLink to={`/users/${dummyUserId}`}>プロフィール</StyledLink>
       <TweetForm />
     </SidebarContainer>
   );
