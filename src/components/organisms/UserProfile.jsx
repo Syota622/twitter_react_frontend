@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import UserTweetsList from "./UserTweetsList";
+import UserTweetsList from "../pages/UserTweetsList";
 
 // スタイル定義
 const ProfileContainer = styled.div`

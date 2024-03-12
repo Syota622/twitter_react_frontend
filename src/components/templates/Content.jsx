@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import TweetsList from "../pages/TweetsList";
 import TweetDetail from "../pages/TweetDetail";
-import UserProfile from "../pages/UserProfile";
+import UserProfile from "../organisms/UserProfile";
 
 const ContentContainer = styled.div`
   flex: 2;
