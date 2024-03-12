@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InputField from "../atoms/InputField";
 import Button from "../atoms/Button";
 import styled from "styled-components";
