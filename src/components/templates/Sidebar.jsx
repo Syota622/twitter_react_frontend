@@ -50,7 +50,7 @@ const Sidebar = () => {
       <StyledLink>メッセージ</StyledLink>
       <StyledLink>設定</StyledLink>
       <StyledLink>ログアウト</StyledLink>
-      {userId && <StyledLink to={`/users/${userId}`}>プロフィール</StyledLink>}
+      {userId && <StyledLink to={`/user/${userId}`}>プロフィール</StyledLink>}
       <TweetForm />
     </SidebarContainer>
   );

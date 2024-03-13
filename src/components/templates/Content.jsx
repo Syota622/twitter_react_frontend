@@ -21,7 +21,7 @@ const Content = () => {
         {/* ツイート詳細 */}
         <Route path="/tweets/:tweetId" element={<TweetDetail />} />
         {/* プロフィール */}
-        <Route path="/users/:userId" element={<UserProfile />} />
+        <Route path="/user/:userId" element={<UserProfile />} />
       </Routes>
     </ContentContainer>
   );
