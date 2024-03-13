@@ -7,6 +7,9 @@ import UpdateUserProfileModal from "./UpdateUserProfileModal";
 
 // スタイル定義
 const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 `;
 
@@ -22,15 +25,17 @@ const ProfileImage = styled.img`
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px;
+  margin-top: -50px;
+  border: 2px solid white;
 `;
 
 const Username = styled.h2`
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const Bio = styled.p`
   margin-bottom: 20px;
+  text-align: center;
 `;
 
 const UserProfile = () => {
@@ -56,6 +61,7 @@ const UserProfile = () => {
     fetchUserProfile();
   }, [userId]);
 
+  // ユーザープロフィール情報が取得できるまでローディング表示
   if (!userProfile) {
     return <div>Loading...</div>;
   }

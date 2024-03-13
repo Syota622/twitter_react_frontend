@@ -38,25 +38,40 @@ function UpdateUserProfileModal() {
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await axios.put("/user/profile", {
-      username,
-      email,
-      bio,
-      profile_image_url: profileImageUrl,
-      background_image_url: backgroundImageUrl,
-    });
+    // LocalStorageから認証トークンを取得
+    const token = localStorage.getItem("token");
 
-    if (response.status === 200) {
-      alert("プロフィールが正常に更新されました");
-      handleClose();
-    } else {
-      alert("プロフィールの更新に失敗しました");
+    try {
+      const response = await axios.put(
+        "http://localhost:8080/user/profile",
+        {
+          username: username,
+          email: email,
+          bio: bio,
+          profile_image_url: profileImageUrl,
+          background_image_url: backgroundImageUrl,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // プロフィール更新成功
+        alert("プロフィールが更新されました");
+      } else {
+        // プロフィール更新失敗
+        alert("プロフィールの更新に失敗しました");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
