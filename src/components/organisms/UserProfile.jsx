@@ -8,6 +8,7 @@ import BackgroundImage from "../atoms/BackgroundImage";
 import ProfileImage from "../atoms/ProfileImage";
 import Username from "../atoms/Username";
 import Bio from "../atoms/Bio";
+import TabButtons from "../molecules/TabButtons";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -32,21 +33,6 @@ const TabBar = styled.div`
   width: 100%;
   margin-top: 20px;
   border-bottom: 1px solid #e1e8ed;
-`;
-
-const TabButton = styled.button`
-  padding: 20px 0;
-  border: none;
-  background: none;
-  font-weight: bold;
-  color: #1da1f2;
-  border-bottom: 3px solid
-    ${(props) => (props.active ? "#1da1f2" : "transparent")}; // アクティブなタブの下線を表示
-  &:hover {
-    background-color: #e8f5fe;
-  }
-  flex-grow: 1;
-  text-align: center;
 `;
 
 const UpdateButtonContainer = styled.div`
@@ -99,15 +85,7 @@ const UserProfile = () => {
         </UpdateButtonContainer>
       </UserInfoSection>
       <TabBar>
-        <TabButton onClick={() => setTab("posts")} active={tab === "posts"}>
-          ポスト
-        </TabButton>
-        <TabButton onClick={() => setTab("replies")} active={tab === "replies"}>
-          返信
-        </TabButton>
-        <TabButton onClick={() => setTab("likes")} active={tab === "likes"}>
-          いいね
-        </TabButton>
+        <TabButtons currentTab={tab} setTab={setTab} />
       </TabBar>
 
       {tab === "posts" && <UserTweetsList userId={userId} />}
