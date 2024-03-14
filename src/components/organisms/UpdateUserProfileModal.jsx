@@ -21,6 +21,7 @@ const Modal = styled.div`
   border-radius: 10px;
   width: 80%;
   max-width: 500px;
+  z-index: 3;
 `;
 
 const Input = styled.input`
