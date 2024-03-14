@@ -6,6 +6,8 @@ import UserTweetsList from "../pages/UserTweetsList";
 import UpdateUserProfileModal from "./UpdateUserProfileModal";
 import BackgroundImage from "../atoms/BackgroundImage";
 import ProfileImage from "../atoms/ProfileImage";
+import Username from "../atoms/Username";
+import Bio from "../atoms/Bio";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -22,18 +24,6 @@ const UserInfoSection = styled.div`
   display: flex;
   width: 100%;
   margin-top: 70px;
-`;
-
-const Username = styled.h2`
-  font-size: 24px;
-  color: #14171a;
-`;
-
-const Bio = styled.p`
-  color: #657786;
-  text-align: left;
-  padding: 0 20px;
-  width: 100%;
 `;
 
 const TabBar = styled.div`
@@ -101,8 +91,8 @@ const UserProfile = () => {
       <UserInfoSection>
         <ProfileImage imageUrl={userProfile.profile_image_url.String} />
         <div>
-          <Username>{userProfile.username}</Username>
-          <Bio>{userProfile.bio.String}</Bio>
+          <Username text={userProfile.username} />
+          <Bio text={userProfile.bio.String} />
         </div>
         <UpdateButtonContainer>
           <UpdateUserProfileModal />
