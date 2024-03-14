@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import UserTweetsList from "../pages/UserTweetsList";
 import UpdateUserProfileModal from "./UpdateUserProfileModal";
 import BackgroundImage from "../atoms/BackgroundImage";
+import ProfileImage from "../atoms/ProfileImage";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -15,18 +16,6 @@ const ProfileContainer = styled.div`
   margin: 20px auto; // 自動で中央に配置
   max-width: 600px;
   position: relative; // 子要素の絶対位置を設定する基準点に
-`;
-
-const ProfileImage = styled.img`
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  position: absolute; // 位置を絶対位置に設定
-  top: 150px;
-  left: 20px;
-  z-index: 2; // 他の要素より前面に表示
-  border: 4px solid white;
 `;
 
 const UserInfoSection = styled.div`
@@ -110,10 +99,7 @@ const UserProfile = () => {
     <ProfileContainer>
       <BackgroundImage imageUrl={userProfile.background_image_url.String} />
       <UserInfoSection>
-        <ProfileImage
-          src={userProfile.profile_image_url.String}
-          alt="プロフィール画像"
-        />
+        <ProfileImage imageUrl={userProfile.profile_image_url.String} />
         <div>
           <Username>{userProfile.username}</Username>
           <Bio>{userProfile.bio.String}</Bio>
