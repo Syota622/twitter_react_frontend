@@ -9,6 +9,7 @@ const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-right: 50px;
 `;
 
 const StyledLink = styled(Link)`
