@@ -7,8 +7,6 @@ import UserProfile from "../organisms/UserProfile";
 
 const ContentContainer = styled.div`
   flex: 2;
-  padding-left: 20px;
-  margin-left: 20px;
   border-left: 1px solid #e0e0e0;
 `;
 
