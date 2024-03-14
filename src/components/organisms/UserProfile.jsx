@@ -17,15 +17,6 @@ const ProfileContainer = styled.div`
   position: relative; // 子要素の絶対位置を設定する基準点に
 `;
 
-// const BackgroundImage = styled.div`
-//   width: 100%;
-//   height: 200px;
-//   background-size: cover;
-//   background-position: center;
-//   border-radius: 15px 15px 0 0;
-//   z-index: 1; // z-indexを設定して背景を後ろに
-// `;
-
 const ProfileImage = styled.img`
   width: 120px;
   height: 120px;
