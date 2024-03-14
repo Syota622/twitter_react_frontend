@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import UserTweetsList from "../pages/UserTweetsList";
 import UpdateUserProfileModal from "./UpdateUserProfileModal";
+import BackgroundImage from "../atoms/BackgroundImage";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -16,14 +17,14 @@ const ProfileContainer = styled.div`
   position: relative; // 子要素の絶対位置を設定する基準点に
 `;
 
-const BackgroundImage = styled.div`
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 15px 15px 0 0;
-  z-index: 1; // z-indexを設定して背景を後ろに
-`;
+// const BackgroundImage = styled.div`
+//   width: 100%;
+//   height: 200px;
+//   background-size: cover;
+//   background-position: center;
+//   border-radius: 15px 15px 0 0;
+//   z-index: 1; // z-indexを設定して背景を後ろに
+// `;
 
 const ProfileImage = styled.img`
   width: 120px;
@@ -103,7 +104,7 @@ const UserProfile = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUserProfile(response.data);
+      setUserProfile(response.data); // ユーザープロフィール情報を設定
     };
 
     fetchUserProfile();
@@ -116,11 +117,7 @@ const UserProfile = () => {
 
   return (
     <ProfileContainer>
-      <BackgroundImage
-        style={{
-          backgroundImage: `url(${userProfile.background_image_url.String})`,
-        }}
-      />
+      <BackgroundImage imageUrl={userProfile.background_image_url.String} />
       <UserInfoSection>
         <ProfileImage
           src={userProfile.profile_image_url.String}
