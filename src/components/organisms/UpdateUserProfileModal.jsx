@@ -73,14 +73,15 @@ function UpdateUserProfileModal() {
 
   useEffect(() => {
     const closeMenu = (event) => {
-      if (event.target.closest(".do-not-close")) return;
-      setShow(false);
+      if (event.target.closest(".do-not-close")) return; // メニュー内の要素がクリックされた場合は閉じない
+      setShow(false); // メニュー外の要素がクリックされた場合は閉じる
     };
-
+    // モーダルが表示されている時だけイベントリスナーを登録
     if (show) {
       document.addEventListener("click", closeMenu);
     }
 
+    // モーダルが閉じられた時にイベントリスナーを解除
     return () => {
       document.removeEventListener("click", closeMenu);
     };
