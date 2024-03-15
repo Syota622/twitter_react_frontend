@@ -23,17 +23,9 @@ const TweetForm = () => {
       formData.append("image", image);
     }
 
-    // セッショントークンを取得する部分を追加
-    const token = localStorage.getItem("token");
-
     // 画像アップロードとツイートの投稿を処理するAPIエンドポイントにリクエストを送信
     try {
-      await axios.post("/tweet", formData, {
-        headers: {
-          // BearerトークンとしてAuthorizationヘッダーに追加
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post("/tweet", formData);
       alert("ツイートが投稿されました！");
     } catch (error) {
       console.error("ツイートの投稿に失敗しました。", error);

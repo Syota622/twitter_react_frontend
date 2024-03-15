@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -31,14 +31,8 @@ const TweetsList = () => {
   // ツイート一覧を取得する
   useEffect(() => {
     const fetchTweets = async () => {
-      const token = localStorage.getItem("token"); // ローカルストレージからトークンを取得
-
       try {
-        const response = await axios.get("http://localhost:8080/tweets", {
-          headers: {
-            Authorization: `Bearer ${token}`, // トークンをヘッダーに含める
-          },
-        });
+        const response = await axios.get("/tweets");
         setTweets(response.data.tweets);
       } catch (error) {
         console.error("ツイートの取得に失敗しました:", error);

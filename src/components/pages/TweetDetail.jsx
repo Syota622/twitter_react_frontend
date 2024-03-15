@@ -16,9 +16,7 @@ const TweetDetail = () => {
 
   useEffect(() => {
     const fetchTweetDetail = async () => {
-      const response = await axios.get(
-        `http://localhost:8080/tweets/${tweetId}`
-      );
+      const response = await axios.get(`/tweets/${tweetId}`);
       setTweet(response.data.tweet);
     };
     fetchTweetDetail();

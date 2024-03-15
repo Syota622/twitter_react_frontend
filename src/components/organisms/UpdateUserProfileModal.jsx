@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -44,25 +44,14 @@ function UpdateUserProfileModal() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // LocalStorageから認証トークンを取得
-    const token = localStorage.getItem("token");
-
     try {
-      const response = await axios.put(
-        "http://localhost:8080/user/profile",
-        {
-          username: username,
-          email: email,
-          bio: bio,
-          profile_image_url: profileImageUrl,
-          background_image_url: backgroundImageUrl,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.put("/user/profile", {
+        username: username,
+        email: email,
+        bio: bio,
+        profile_image_url: profileImageUrl,
+        background_image_url: backgroundImageUrl,
+      });
 
       if (response.status === 200) {
         // プロフィール更新成功

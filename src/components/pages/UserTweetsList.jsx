@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import styled from "styled-components";
 
 const TweetContainer = styled.div`
@@ -22,14 +22,7 @@ const UserTweetsList = ({ userId }) => {
   useEffect(() => {
     const fetchTweets = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/users/${userId}/tweets`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // トークンをヘッダーに含める
-            },
-          }
-        );
+        const response = await axios.get(`/users/${userId}/tweets`);
         // レスポンスが有効であれば、tweetsを設定
         if (response.data && response.data.tweets) {
           setTweets(response.data.tweets);

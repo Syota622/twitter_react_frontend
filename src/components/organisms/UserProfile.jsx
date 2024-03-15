@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import UserTweetsList from "../pages/UserTweetsList";
@@ -52,14 +52,7 @@ const UserProfile = () => {
   // ユーザープロフィール情報を取得
   useEffect(() => {
     const fetchUserProfile = async () => {
-      // LocalStorageから認証トークンを取得
-      const token = localStorage.getItem("token");
-
-      const response = await axios.get(`http://localhost:8080/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`/user/${userId}`);
       setUserProfile(response.data); // ユーザープロフィール情報を設定
     };
 
