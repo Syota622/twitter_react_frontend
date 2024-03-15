@@ -11,10 +11,10 @@ const TweetContainer = styled(Link)`
   color: inherit; // リンクの色を親要素に合わせる
   &:last-child {
     border-bottom: none;
-  }
+  } // 最後の要素の下線を除去
   &:hover {
     background-color: #f8f8f8;
-  }
+  } // マウスオーバー時の背景色
 `;
 
 const TweetImage = styled.img`

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const TweetContainer = styled.div`
+const TweetContainer = styled(Link)`
+  display: block;
   padding: 10px;
   border-bottom: 1px solid #e1e8ed;
+  text-decoration: none; // リンクの下線を除去
+  color: inherit; // リンクの色を親要素に合わせる
   &:last-child {
     border-bottom: none;
-  }
+  } // 最後の要素の下線を除去
+  &:hover {
+    background-color: #f8f8f8;
+  } // マウスオーバー時の背景色
 `;
 
 const TweetImage = styled.img`
@@ -47,7 +54,7 @@ const UserTweetsList = ({ userId }) => {
   return (
     <div>
       {tweets.map((tweet) => (
-        <TweetContainer key={tweet.id}>
+        <TweetContainer to={`/tweets/${tweet.id}`} key={tweet.id}>
           <p>{tweet.message}</p>
           {/* tweet.image_url.Valid が true の場合のみ画像を表示 */}
           {tweet.image_url.Valid && (
