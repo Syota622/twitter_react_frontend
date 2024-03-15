@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import MenuButton from "../organisms/MenuButton";
 
 const TweetContainer = styled(Link)`
   display: block;
@@ -15,6 +16,7 @@ const TweetContainer = styled(Link)`
   &:hover {
     background-color: #f8f8f8;
   } // マウスオーバー時の背景色
+  position: relative;
 `;
 
 const TweetImage = styled.img`
@@ -60,6 +62,7 @@ const UserTweetsList = ({ userId }) => {
           {tweet.image_url.Valid && (
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
           )}
+          <MenuButton />
         </TweetContainer>
       ))}
     </div>
