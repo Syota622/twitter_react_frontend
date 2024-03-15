@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import styled from "styled-components";
 
@@ -44,7 +44,10 @@ function UpdateUserProfileModal() {
   });
 
   // モーダルを表示する関数
-  const handleShow = () => setShow(true);
+  const handleShow = (event) => {
+    event.stopPropagation();
+    setShow(true);
+  };
 
   // ユーザーが入力フィールドの値を変更したときに呼ばれる関数
   const onChangeUser = (e) => {
@@ -68,12 +71,27 @@ function UpdateUserProfileModal() {
     }
   };
 
+  useEffect(() => {
+    const closeMenu = (event) => {
+      if (event.target.closest(".do-not-close")) return;
+      setShow(false);
+    };
+
+    if (show) {
+      document.addEventListener("click", closeMenu);
+    }
+
+    return () => {
+      document.removeEventListener("click", closeMenu);
+    };
+  }, [show]);
+
   return (
     <>
       <Button onClick={handleShow}>プロフィールを更新</Button>
 
       {show && (
-        <Modal>
+        <Modal className="do-not-close">
           <h2>プロフィールを更新</h2>
           <form onSubmit={handleSubmit}>
             <label>ユーザー名</label>
