@@ -32,32 +32,35 @@ const Input = styled.input`
 `;
 
 function UpdateUserProfileModal() {
+  // モーダルの表示状態を管理
   const [show, setShow] = useState(false);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [bio, setBio] = useState("");
-  const [profileImageUrl, setProfileImageUrl] = useState("");
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
+  // ユーザー情報を管理
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    bio: "",
+    profile_image_url: "",
+    background_image_url: "",
+  });
 
+  // モーダルを表示する関数
   const handleShow = () => setShow(true);
+
+  // ユーザーが入力フィールドの値を変更したときに呼ばれる関数
+  const onChangeUser = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.put("/user/profile", {
-        username: username,
-        email: email,
-        bio: bio,
-        profile_image_url: profileImageUrl,
-        background_image_url: backgroundImageUrl,
-      });
+      const response = await axios.put("/user/profile", user);
 
       if (response.status === 200) {
-        // プロフィール更新成功
         alert("プロフィールが更新されました");
       } else {
-        // プロフィール更新失敗
         alert("プロフィールの更新に失敗しました");
       }
     } catch (error) {
@@ -76,36 +79,46 @@ function UpdateUserProfileModal() {
             <label>ユーザー名</label>
             <Input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              value={user.username}
+              onChange={onChangeUser}
+              placeholder="ユーザー名"
             />
 
             <label>メールアドレス</label>
             <Input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={user.email}
+              onChange={onChangeUser}
+              placeholder="メールアドレス"
             />
 
             <label>自己紹介</label>
             <Input
               type="text"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
+              name="bio"
+              value={user.bio}
+              onChange={onChangeUser}
+              placeholder="自己紹介"
             />
 
             <label>プロフィール画像URL</label>
             <Input
               type="text"
-              value={profileImageUrl}
-              onChange={(e) => setProfileImageUrl(e.target.value)}
+              name="profile_image_url"
+              value={user.profile_image_url}
+              onChange={onChangeUser}
+              placeholder="プロフィール画像URL"
             />
 
             <label>背景画像URL</label>
             <Input
               type="text"
-              value={backgroundImageUrl}
-              onChange={(e) => setBackgroundImageUrl(e.target.value)}
+              name="background_image_url"
+              value={user.background_image_url}
+              onChange={onChangeUser}
+              placeholder="背景画像URL"
             />
 
             <Button type="submit">更新</Button>
