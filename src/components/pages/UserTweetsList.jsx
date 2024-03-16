@@ -25,6 +25,7 @@ const TweetImage = styled.img`
   margin-top: 10px;
 `;
 
+// ユーザーのツイート一覧を表示するコンポーネント
 const UserTweetsList = ({ userId }) => {
   const [tweets, setTweets] = useState(null);
 
@@ -48,6 +49,11 @@ const UserTweetsList = ({ userId }) => {
     fetchTweets();
   }, [userId]); // userIdが変更された時にのみ実行
 
+  // ツイート削除時の処理
+  const handleDeleteTweet = (deletedTweetId) => {
+    setTweets(tweets.filter((tweet) => tweet.id !== deletedTweetId));
+  };
+
   if (!tweets) {
     // tweetsがnullまたは未定義の場合はローディング表示など
     return <div>読み込み中...</div>;
@@ -62,7 +68,7 @@ const UserTweetsList = ({ userId }) => {
           {tweet.image_url.Valid && (
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
           )}
-          <MenuButton />
+          <MenuButton tweetId={tweet.id} onDeleteTweet={handleDeleteTweet} />
         </TweetContainer>
       ))}
     </div>

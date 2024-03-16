@@ -1,6 +1,7 @@
 // MenuModal.jsx
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 
 const DeleteButton = styled.button`
   position: absolute;
@@ -15,7 +16,7 @@ const DeleteButton = styled.button`
   font-size: 30px;
 `;
 
-const MenuModal = ({ isOpen, onClose }) => {
+const MenuModal = ({ isOpen, onClose, tweetId, onDeleteTweet }) => {
   // メニューが開いている時だけイベントリスナーを登録
   useEffect(() => {
     const closeMenu = (event) => {
@@ -36,12 +37,32 @@ const MenuModal = ({ isOpen, onClose }) => {
     };
   }, [isOpen, onClose]);
 
+  const handleDelete = async (event) => {
+    // クリックイベントが親要素に伝播しないようにする
+    event.stopPropagation();
+    // デフォルトのイベントをキャンセル
+    event.preventDefault();
+
+    try {
+      const response = await axios.delete(`/tweet/${tweetId}`);
+
+      if (response.status === 200) {
+        alert("ツイートが削除されました");
+        onDeleteTweet(tweetId);
+        onClose();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // メニューが閉じている場合は何も表示しない
   if (!isOpen) {
     return null;
   }
 
   return (
-    <DeleteButton className="do-not-close" onClick={onClose}>
+    <DeleteButton className="do-not-close" onClick={handleDelete}>
       削除
     </DeleteButton>
   );

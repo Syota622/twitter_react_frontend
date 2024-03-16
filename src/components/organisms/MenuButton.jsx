@@ -16,13 +16,13 @@ const MenuButtonContainer = styled.button`
   right: 10px;
 `;
 
-const MenuButton = () => {
+const MenuButton = ({ tweetId, onDeleteTweet }) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   // モーダルを表示する関数
   const handleOpenModal = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
+    event.stopPropagation(); // クリックイベントが要素に伝播しないようにする
+    event.preventDefault(); // デフォルトのイベントをキャンセル
     setModalOpen(true);
   };
 
@@ -36,7 +36,12 @@ const MenuButton = () => {
       <MenuButtonContainer onClick={handleOpenModal}>
         メニュー
       </MenuButtonContainer>
-      <MenuModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <MenuModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        tweetId={tweetId}
+        onDeleteTweet={onDeleteTweet}
+      />
     </>
   );
 };
