@@ -18,7 +18,10 @@ const AuthContainer = styled.div`
 // ログイン後のメインレイアウトスタイル
 const MainContainer = styled.div`
   display: flex;
-  padding: 20px;
+  justify-content: center;
+  align-items: start;
+  max-width: 1200px; // 最大幅はコンテンツに合わせて調整
+  margin: auto; // 自動で中央寄せ
 `;
 
 function App() {

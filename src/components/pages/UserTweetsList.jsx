@@ -18,37 +18,45 @@ const TweetContainer = styled(Link)`
 `;
 
 const TweetImage = styled.img`
-  width: 100%;
-  max-height: 400px;
-  object-fit: contain; // 画像の縦横比を保ちつつ、コンテナ内に収める
+  max-width: 100%;
+  height: auto;
   margin-top: 10px;
 `;
 
-const TweetsList = () => {
-  // ツイート一覧を保持するための状態
-  const [tweets, setTweets] = useState([]);
+const UserTweetsList = ({ userId }) => {
+  const [tweets, setTweets] = useState(null);
 
-  // ツイート一覧を取得する
   useEffect(() => {
     const fetchTweets = async () => {
       try {
-        const response = await axios.get("/tweets");
-        setTweets(response.data.tweets);
+        const response = await axios.get(`/users/${userId}/tweets`);
+        // レスポンスが有効であれば、tweetsを設定
+        if (response.data && response.data.tweets) {
+          setTweets(response.data.tweets);
+        } else {
+          // 有効なデータがない場合は空の配列を設定
+          setTweets([]);
+        }
       } catch (error) {
         console.error("ツイートの取得に失敗しました:", error);
+        setTweets([]); // エラーが発生した場合は空の配列を設定
       }
     };
 
     fetchTweets();
-  }, []); // コンポーネントのマウント時にのみ実行
+  }, [userId]); // userIdが変更された時にのみ実行
+
+  if (!tweets) {
+    // tweetsがnullまたは未定義の場合はローディング表示など
+    return <div>読み込み中...</div>;
+  }
 
   return (
     <div>
-      <h2>ツイート一覧</h2>
       {tweets.map((tweet) => (
         <TweetContainer to={`/tweets/${tweet.id}`} key={tweet.id}>
-          <strong>{tweet.user}</strong>
           <p>{tweet.message}</p>
+          {/* tweet.image_url.Valid が true の場合のみ画像を表示 */}
           {tweet.image_url.Valid && (
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
           )}
@@ -58,4 +66,4 @@ const TweetsList = () => {
   );
 };
 
-export default TweetsList;
+export default UserTweetsList;
