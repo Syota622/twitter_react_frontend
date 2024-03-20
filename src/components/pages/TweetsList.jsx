@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import CommentModal from "../organisms/CommentModal";
 
 const TweetContainer = styled(Link)`
   display: block;
@@ -27,6 +28,20 @@ const TweetImage = styled.img`
 const TweetsList = () => {
   // ツイート一覧を保持するための状態
   const [tweets, setTweets] = useState([]);
+  // コメントモーダルの表示状態と対象のツイートIDを保持するための状態
+  const [modal, setModal] = useState({ isOpen: false, tweetId: null });
+
+  // コメントボタンがクリックされたときのハンドラ
+  const handleCommentButtonClick = (event, tweetId) => {
+    event.stopPropagation(); // イベントの伝播を停止
+    event.preventDefault(); // デフォルトのイベントをキャンセル
+    setModal({ isOpen: true, tweetId });
+  };
+
+  // コメントモーダルが閉じられたときのハンドラ
+  const handleModalClose = () => {
+    setModal({ isOpen: false, tweetId: null });
+  };
 
   // ツイート一覧を取得する
   useEffect(() => {
@@ -52,8 +67,21 @@ const TweetsList = () => {
           {tweet.image_url.Valid && (
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
           )}
+          <button
+            type="button"
+            onClick={(event) => handleCommentButtonClick(event, tweet.id)}
+          >
+            コメント
+          </button>
         </TweetContainer>
       ))}
+      {modal.isOpen && (
+        <CommentModal
+          isOpen={modal.isOpen}
+          tweetId={modal.tweetId}
+          onClose={handleModalClose}
+        />
+      )}
     </div>
   );
 };
