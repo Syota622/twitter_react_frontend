@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import MenuButton from "../organisms/MenuButton";
 
 const TweetContainer = styled(Link)`
   display: block;
@@ -15,6 +16,7 @@ const TweetContainer = styled(Link)`
   &:hover {
     background-color: #f8f8f8;
   } // マウスオーバー時の背景色
+  position: relative;
 `;
 
 const TweetImage = styled.img`
@@ -23,6 +25,7 @@ const TweetImage = styled.img`
   margin-top: 10px;
 `;
 
+// ユーザーのツイート一覧を表示するコンポーネント
 const UserTweetsList = ({ userId }) => {
   const [tweets, setTweets] = useState(null);
 
@@ -46,6 +49,11 @@ const UserTweetsList = ({ userId }) => {
     fetchTweets();
   }, [userId]); // userIdが変更された時にのみ実行
 
+  // ツイート削除時の処理
+  const handleDeleteTweet = (deletedTweetId) => {
+    setTweets(tweets.filter((tweet) => tweet.id !== deletedTweetId));
+  };
+
   if (!tweets) {
     // tweetsがnullまたは未定義の場合はローディング表示など
     return <div>読み込み中...</div>;
@@ -60,6 +68,7 @@ const UserTweetsList = ({ userId }) => {
           {tweet.image_url.Valid && (
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
           )}
+          <MenuButton tweetId={tweet.id} onDeleteTweet={handleDeleteTweet} />
         </TweetContainer>
       ))}
     </div>
