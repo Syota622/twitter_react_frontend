@@ -3,6 +3,7 @@ import axios from "../../utils/axios"; // カスタムインスタンスをイ�
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MenuButton from "../organisms/MenuButton";
+import CommentModal from "../organisms/CommentModal";
 
 const TweetContainer = styled(Link)`
   display: block;
@@ -27,7 +28,10 @@ const TweetImage = styled.img`
 
 // ユーザーのツイート一覧を表示するコンポーネント
 const UserTweetsList = ({ userId }) => {
+  // ツイート一覧を保持するための状態
   const [tweets, setTweets] = useState(null);
+  // コメントモーダルの表示状態と対象のツイートIDを保持するための状態
+  const [modal, setModal] = useState({ isOpen: false, tweetId: null });
 
   useEffect(() => {
     const fetchTweets = async () => {
@@ -54,6 +58,18 @@ const UserTweetsList = ({ userId }) => {
     setTweets(tweets.filter((tweet) => tweet.id !== deletedTweetId));
   };
 
+  // コメントボタンがクリックされたときのハンドラ
+  const handleCommentButtonClick = (event, tweetId) => {
+    event.stopPropagation(); // イベントの伝播を停止
+    event.preventDefault(); // デフォルトのイベントをキャンセル
+    setModal({ isOpen: true, tweetId });
+  };
+
+  // コメントモーダルが閉じられたときのハンドラ
+  const handleModalClose = () => {
+    setModal({ isOpen: false, tweetId: null });
+  };
+
   if (!tweets) {
     // tweetsがnullまたは未定義の場合はローディング表示など
     return <div>読み込み中...</div>;
@@ -69,8 +85,21 @@ const UserTweetsList = ({ userId }) => {
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
           )}
           <MenuButton tweetId={tweet.id} onDeleteTweet={handleDeleteTweet} />
+          <button
+            type="button"
+            onClick={(event) => handleCommentButtonClick(event, tweet.id)}
+          >
+            コメント
+          </button>
         </TweetContainer>
       ))}
+      {modal.isOpen && (
+        <CommentModal
+          isOpen={modal.isOpen}
+          tweetId={modal.tweetId}
+          onClose={handleModalClose}
+        />
+      )}
     </div>
   );
 };
