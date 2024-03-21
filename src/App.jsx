@@ -1,5 +1,5 @@
 // App.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import SignupForm from "./components/organisms/SignupForm";
 import LoginForm from "./components/organisms/LoginForm";
@@ -26,6 +26,14 @@ const MainContainer = styled.div`
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // localStorageからログイン状態を確認
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
