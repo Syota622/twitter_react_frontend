@@ -12,8 +12,8 @@ const TabButtons = ({ currentTab, setTab }) => {
         ポスト
       </TabButton>
       <TabButton
-        onClick={() => setTab("comment")}
-        active={currentTab === "comment"}
+        onClick={() => setTab("comments")}
+        active={currentTab === "comments"}
       >
         コメント
       </TabButton>
