@@ -46,7 +46,7 @@ const TweetDetail = () => {
         )}
       </TweetContainer>
       <h3>コメント</h3>
-      {comments.map((comment) => (
+      {(comments || []).map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
     </div>
