@@ -101,6 +101,18 @@ const UserCommentsList = ({ userId }) => {
     }
   };
 
+  // コメントの削除が成功したときのハンドラ
+  const onDeleteComment = (commentIdToDelete) => {
+    setTweets((currentTweets) =>
+      currentTweets.map((tweet) => ({
+        ...tweet,
+        comments: tweet.comments.filter(
+          (comment) => comment.id !== commentIdToDelete
+        ),
+      }))
+    );
+  };
+
   if (!tweets) {
     // tweetsがnullまたは未定義の場合はローディング表示など
     return <div>読み込み中...</div>;
@@ -126,7 +138,11 @@ const UserCommentsList = ({ userId }) => {
           </TweetContainer>
           {/* 各ツイートのコメントを表示 */}
           {tweet.comments.map((comment) => (
-            <Comment key={comment.id} comment={comment} />
+            <Comment
+              key={comment.id}
+              comment={comment}
+              onDeleteComment={onDeleteComment}
+            />
           ))}
         </div>
       ))}
