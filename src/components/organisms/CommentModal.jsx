@@ -17,20 +17,17 @@ const customStyles = {
   },
 };
 
-const CommentModal = ({ isOpen, tweetId, onClose }) => {
-  // コメントの入力値を保持するための状態
+// onCommentPosted propを追加して、コメント投稿成功時の処理を親コンポーネントから受け取れるようにします
+const CommentModal = ({ isOpen, tweetId, onClose, onCommentPosted }) => {
   const [comment, setComment] = useState("");
 
-  // コメントの入力値が変更された時のハンドラ
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
 
-  // コメントの作成処理
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // FormDataオブジェクトを使用してフォームデータを構築
     const formData = new FormData();
     formData.append("tweet_id", tweetId.toString());
     formData.append("comment", comment);
@@ -41,7 +38,11 @@ const CommentModal = ({ isOpen, tweetId, onClose }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      onClose(); // コメント投稿後にモーダルを閉じる
+      // コメント投稿が成功したことを親コンポーネントに通知
+      if (onCommentPosted) {
+        onCommentPosted();
+      }
+      onClose(); // モーダルを閉じる
     } catch (error) {
       console.error("コメントの作成に失敗しました:", error);
     }

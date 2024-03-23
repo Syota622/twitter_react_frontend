@@ -41,6 +41,7 @@ const UserCommentsList = ({ userId }) => {
         const response = await axios.get(`/users/${userId}/tweets`);
         // レスポンスが有効であれば、各ツイートにコメントを追加して設定
         if (response.data && response.data.tweets) {
+          // 各ツイートに対してコメントを取得
           const tweetsData = await Promise.all(
             response.data.tweets.map(async (tweet) => {
               try {
@@ -84,6 +85,22 @@ const UserCommentsList = ({ userId }) => {
     setModal({ isOpen: false, tweetId: null });
   };
 
+  // ツイートに対するコメントを更新する関数
+  const updateCommentsForTweet = async (tweetId) => {
+    try {
+      const response = await axios.get(`/comments/${tweetId}`);
+      const updatedComments = response.data.comments || [];
+      // 対象のツイートのコメントを更新
+      setTweets((currentTweets) =>
+        currentTweets.map((tweet) =>
+          tweet.id === tweetId ? { ...tweet, comments: updatedComments } : tweet
+        )
+      );
+    } catch (error) {
+      console.error("コメントの取得に失敗しました:", error);
+    }
+  };
+
   if (!tweets) {
     // tweetsがnullまたは未定義の場合はローディング表示など
     return <div>読み込み中...</div>;
@@ -118,6 +135,7 @@ const UserCommentsList = ({ userId }) => {
           isOpen={modal.isOpen}
           tweetId={modal.tweetId}
           onClose={handleModalClose}
+          onCommentPosted={() => updateCommentsForTweet(modal.tweetId)}
         />
       )}
     </div>
