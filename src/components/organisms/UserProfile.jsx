@@ -9,6 +9,7 @@ import ProfileImage from "../atoms/ProfileImage";
 import Username from "../atoms/Username";
 import Bio from "../atoms/Bio";
 import TabButtons from "../molecules/TabButtons";
+import UserCommentsList from "./UserCommentsList";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -82,7 +83,7 @@ const UserProfile = () => {
       </TabBar>
 
       {tab === "posts" && <UserTweetsList userId={userId} />}
-      {tab === "replies" && <div>返信のダミー内容</div>}
+      {tab === "comments" && <UserCommentsList userId={userId} />}
       {tab === "likes" && <div>いいねのダミー内容</div>}
     </ProfileContainer>
   );
