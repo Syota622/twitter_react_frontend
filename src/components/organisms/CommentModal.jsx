@@ -17,8 +17,8 @@ const customStyles = {
   },
 };
 
-const CommentModal = ({ isOpen, tweetId, onClose }) => {
-  // コメントの入力値を保持するための状態
+// コメントの入力値を保持するための状態
+const CommentModal = ({ isOpen, tweetId, onClose, onCommentPosted }) => {
   const [comment, setComment] = useState("");
 
   // コメントの入力値が変更された時のハンドラ
@@ -41,6 +41,10 @@ const CommentModal = ({ isOpen, tweetId, onClose }) => {
           "Content-Type": "multipart/form-data",
         },
       });
+      // コメント投稿が成功したことを親コンポーネントに通知
+      if (onCommentPosted) {
+        onCommentPosted();
+      }
       onClose(); // コメント投稿後にモーダルを閉じる
     } catch (error) {
       console.error("コメントの作成に失敗しました:", error);
