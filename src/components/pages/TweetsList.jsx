@@ -58,7 +58,9 @@ const TweetsList = () => {
   }, []); // コンポーネントのマウント時にのみ実行
 
   // リツイートを作成する
-  const handleRetweet = async (tweetId) => {
+  const handleRetweet = async (event, tweetId) => {
+    event.stopPropagation(); // イベントの伝播を停止
+    event.preventDefault(); // デフォルトのイベントをキャンセル
     try {
       await axios.post(`/retweet/${tweetId}`);
       // リツイート成功後、ツイート一覧を再取得
@@ -86,9 +88,14 @@ const TweetsList = () => {
           >
             コメント
           </button>
-          <button type="button" onClick={() => handleRetweet(tweet.id)}>
+          <button
+            type="button"
+            onClick={(event) => handleRetweet(event, tweet.id)}
+          >
             リツイート
           </button>
+          {/* リツイート数を表示 */}
+          <span style={{ marginLeft: "10px" }}>{tweet.retweet_count}</span>{" "}
         </TweetContainer>
       ))}
       {modal.isOpen && (
