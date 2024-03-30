@@ -57,6 +57,18 @@ const TweetsList = () => {
     fetchTweets();
   }, []); // コンポーネントのマウント時にのみ実行
 
+  // リツイートを作成する
+  const handleRetweet = async (tweetId) => {
+    try {
+      await axios.post(`/retweet/${tweetId}`);
+      // リツイート成功後、ツイート一覧を再取得
+      const response = await axios.get("/tweets");
+      setTweets(response.data.tweets);
+    } catch (error) {
+      console.error("リツイートの作成に失敗しました:", error);
+    }
+  };
+
   return (
     <div>
       <h2>ツイート一覧</h2>
@@ -70,8 +82,12 @@ const TweetsList = () => {
           <button
             type="button"
             onClick={(event) => handleCommentButtonClick(event, tweet.id)}
+            style={{ marginRight: "10px" }} // 右側に10pxのマージンを追加
           >
             コメント
+          </button>
+          <button type="button" onClick={() => handleRetweet(tweet.id)}>
+            リツイート
           </button>
         </TweetContainer>
       ))}
