@@ -71,6 +71,20 @@ const TweetsList = () => {
     }
   };
 
+  // 「いいね」を作成する
+  const handleLike = async (event, tweetId) => {
+    event.stopPropagation(); // イベントの伝播を停止
+    event.preventDefault(); // デフォルトのイベントをキャンセル
+    try {
+      await axios.post(`/like/${tweetId}`);
+      // 「いいね」成功後、ツイート一覧を再取得
+      const response = await axios.get("/tweets");
+      setTweets(response.data.tweets);
+    } catch (error) {
+      console.error("「いいね」の作成に失敗しました:", error);
+    }
+  };
+
   return (
     <div>
       <h2>ツイート一覧</h2>
@@ -96,6 +110,14 @@ const TweetsList = () => {
           </button>
           {/* リツイート数を表示 */}
           <span style={{ marginLeft: "10px" }}>{tweet.retweet_count}</span>{" "}
+          <button
+            type="button"
+            onClick={(event) => handleLike(event, tweet.id)}
+          >
+            いいね
+          </button>
+          {/* いいね数を表示 */}
+          <span style={{ marginLeft: "10px" }}>{tweet.like_count}</span>{" "}
         </TweetContainer>
       ))}
       {modal.isOpen && (
