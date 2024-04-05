@@ -44,9 +44,9 @@ const UpdateButtonContainer = styled.div`
 `;
 
 const UserProfile = () => {
-  // ユーザーIDをURLパラメータから取得
+  // 「ツイートのユーザー」IDをパラメータから取得
   const { userId } = useParams();
-  // ログインユーザーのIDを取得
+  // 「ログインユーザー」のIDを取得
   const loggedInUserId = localStorage.getItem("id");
   // ユーザープロフィール情報を取得
   const [userProfile, setUserProfile] = useState(null);
@@ -58,8 +58,15 @@ const UserProfile = () => {
   // ユーザープロフィール情報を取得
   useEffect(() => {
     const fetchUserProfile = async () => {
+      // ツイートのユーザー情報を取得
       const response = await axios.get(`/user/${userId}`);
       setUserProfile(response.data); // ユーザープロフィール情報を設定
+
+      // ツイートのユーザーがログインユーザーをフォローしているか確認
+      const followingResponse = await axios.get(
+        `/follow/${userId}/is-following`
+      );
+      setIsFollowing(followingResponse.data); // フォロー状態を設定
     };
 
     fetchUserProfile();
