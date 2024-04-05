@@ -10,8 +10,9 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const FollowButton = ({ isFollowing, handleFollow }) => (
-  <StyledButton onClick={handleFollow}>
+// isFollowingがtrueの場合は「フォロー中」、falseの場合は「フォロー」を表示
+const FollowButton = ({ isFollowing, handleFollow, handleUnfollow }) => (
+  <StyledButton onClick={isFollowing ? handleUnfollow : handleFollow}>
     {isFollowing ? "フォロー中" : "フォロー"}
   </StyledButton>
 );

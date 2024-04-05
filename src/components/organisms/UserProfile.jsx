@@ -66,7 +66,8 @@ const UserProfile = () => {
       const followingResponse = await axios.get(
         `/follow/${userId}/is-following`
       );
-      setIsFollowing(followingResponse.data); // フォロー状態を設定
+      console.log("followingResponse", followingResponse);
+      setIsFollowing(followingResponse.data.isFollowing); // フォロー状態を設定
     };
 
     fetchUserProfile();
@@ -76,6 +77,12 @@ const UserProfile = () => {
   const handleFollow = async () => {
     await axios.post(`/follow/${userId}`);
     setIsFollowing(true);
+  };
+
+  // フォローを解除する
+  const handleUnfollow = async () => {
+    await axios.delete(`/unfollow/${userId}`);
+    setIsFollowing(false);
   };
 
   // ユーザープロフィール情報が取得できるまでローディング表示
@@ -103,6 +110,7 @@ const UserProfile = () => {
             <FollowButton
               isFollowing={isFollowing}
               handleFollow={handleFollow}
+              handleUnfollow={handleUnfollow}
             />
           </UpdateButtonContainer>
         )}
