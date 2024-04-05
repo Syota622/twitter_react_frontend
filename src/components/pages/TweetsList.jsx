@@ -18,6 +18,15 @@ const TweetContainer = styled(Link)`
   } // マウスオーバー時の背景色
 `;
 
+const Username = styled(Link)`
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const TweetImage = styled.img`
   width: 100%;
   max-height: 400px;
@@ -90,7 +99,7 @@ const TweetsList = () => {
       <h2>ツイート一覧</h2>
       {tweets.map((tweet) => (
         <TweetContainer to={`/tweets/${tweet.id}`} key={tweet.id}>
-          <strong>{tweet.user}</strong>
+          <Username to={`/user/${tweet.user_id}`}>{tweet.username}</Username>
           <p>{tweet.message}</p>
           {tweet.image_url.Valid && (
             <TweetImage src={tweet.image_url.String} alt="Tweet" />
