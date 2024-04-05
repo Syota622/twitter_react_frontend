@@ -10,6 +10,7 @@ import Username from "../atoms/Username";
 import Bio from "../atoms/Bio";
 import TabButtons from "../molecules/TabButtons";
 import UserCommentsList from "./UserCommentsList";
+import FollowButton from "../atoms/FollowButton";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -49,6 +50,8 @@ const UserProfile = () => {
   const loggedInUserId = localStorage.getItem("id");
   // ユーザープロフィール情報を取得
   const [userProfile, setUserProfile] = useState(null);
+  // フォロー状態を管理する状態変数
+  const [isFollowing, setIsFollowing] = useState(false);
   // タブの状態を管理する状態変数
   const [tab, setTab] = useState("posts");
 
@@ -61,6 +64,12 @@ const UserProfile = () => {
 
     fetchUserProfile();
   }, [userId]);
+
+  // フォローを行う
+  const handleFollow = async () => {
+    await axios.post(`/follow/${userId}`);
+    setIsFollowing(true);
+  };
 
   // ユーザープロフィール情報が取得できるまでローディング表示
   if (!userProfile) {
@@ -76,10 +85,18 @@ const UserProfile = () => {
           <Username text={userProfile.username} />
           <Bio text={userProfile.bio.String} />
         </div>
-        {/* ログインユーザーの場合表示する */}
-        {userId === loggedInUserId && (
+        {userId === loggedInUserId ? (
+          // ログインユーザーの場合に表示する
           <UpdateButtonContainer>
             <UpdateUserProfileModal />
+          </UpdateButtonContainer>
+        ) : (
+          // ログインユーザー以外の場合にフォローボタンを表示
+          <UpdateButtonContainer>
+            <FollowButton
+              isFollowing={isFollowing}
+              handleFollow={handleFollow}
+            />
           </UpdateButtonContainer>
         )}
       </UserInfoSection>
