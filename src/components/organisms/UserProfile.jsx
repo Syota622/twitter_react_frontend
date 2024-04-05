@@ -45,6 +45,8 @@ const UpdateButtonContainer = styled.div`
 const UserProfile = () => {
   // ユーザーIDをURLパラメータから取得
   const { userId } = useParams();
+  // ログインユーザーのIDを取得
+  const loggedInUserId = localStorage.getItem("id");
   // ユーザープロフィール情報を取得
   const [userProfile, setUserProfile] = useState(null);
   // タブの状態を管理する状態変数
@@ -74,9 +76,12 @@ const UserProfile = () => {
           <Username text={userProfile.username} />
           <Bio text={userProfile.bio.String} />
         </div>
-        <UpdateButtonContainer>
-          <UpdateUserProfileModal />
-        </UpdateButtonContainer>
+        {/* ログインユーザーの場合表示する */}
+        {userId === loggedInUserId && (
+          <UpdateButtonContainer>
+            <UpdateUserProfileModal />
+          </UpdateButtonContainer>
+        )}
       </UserInfoSection>
       <TabBar>
         <TabButtons currentTab={tab} setTab={setTab} />
