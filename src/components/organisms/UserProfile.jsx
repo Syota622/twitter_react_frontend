@@ -10,6 +10,7 @@ import Username from "../atoms/Username";
 import Bio from "../atoms/Bio";
 import TabButtons from "../molecules/TabButtons";
 import UserCommentsList from "./UserCommentsList";
+import FollowButton from "../atoms/FollowButton";
 
 // スタイル定義
 const ProfileContainer = styled.div`
@@ -43,22 +44,44 @@ const UpdateButtonContainer = styled.div`
 `;
 
 const UserProfile = () => {
-  // ユーザーIDをURLパラメータから取得
+  // 「ツイートのユーザー」IDをパラメータから取得
   const { userId } = useParams();
+  // 「ログインユーザー」のIDを取得
+  const loggedInUserId = localStorage.getItem("id");
   // ユーザープロフィール情報を取得
   const [userProfile, setUserProfile] = useState(null);
+  // フォロー状態を管理する状態変数
+  const [isFollowing, setIsFollowing] = useState(false);
   // タブの状態を管理する状態変数
   const [tab, setTab] = useState("posts");
 
   // ユーザープロフィール情報を取得
   useEffect(() => {
     const fetchUserProfile = async () => {
+      // ツイートのユーザー情報を取得
       const response = await axios.get(`/user/${userId}`);
       setUserProfile(response.data); // ユーザープロフィール情報を設定
+
+      // ツイートのユーザーがログインユーザーをフォローしているか確認
+      const followingResponse = await axios.get(
+        `/follow/${userId}/is-following`
+      );
+      console.log("followingResponse", followingResponse);
+      setIsFollowing(followingResponse.data.isFollowing); // フォロー状態を設定
     };
 
     fetchUserProfile();
   }, [userId]);
+
+  // フォロー/フォロー解除を切り替える
+  const handleToggleFollow = async () => {
+    if (isFollowing) {
+      await axios.delete(`/unfollow/${userId}`);
+    } else {
+      await axios.post(`/follow/${userId}`);
+    }
+    setIsFollowing((prevIsFollowing) => !prevIsFollowing);
+  };
 
   // ユーザープロフィール情報が取得できるまでローディング表示
   if (!userProfile) {
@@ -74,9 +97,20 @@ const UserProfile = () => {
           <Username text={userProfile.username} />
           <Bio text={userProfile.bio.String} />
         </div>
-        <UpdateButtonContainer>
-          <UpdateUserProfileModal />
-        </UpdateButtonContainer>
+        {userId === loggedInUserId ? (
+          // ログインユーザーの場合に表示する
+          <UpdateButtonContainer>
+            <UpdateUserProfileModal />
+          </UpdateButtonContainer>
+        ) : (
+          // ログインユーザー以外の場合にフォローボタンを表示
+          <UpdateButtonContainer>
+            <FollowButton
+              isFollowing={isFollowing}
+              handleToggleFollow={handleToggleFollow}
+            />
+          </UpdateButtonContainer>
+        )}
       </UserInfoSection>
       <TabBar>
         <TabButtons currentTab={tab} setTab={setTab} />
