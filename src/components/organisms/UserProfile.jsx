@@ -73,16 +73,14 @@ const UserProfile = () => {
     fetchUserProfile();
   }, [userId]);
 
-  // フォローを行う
-  const handleFollow = async () => {
-    await axios.post(`/follow/${userId}`);
-    setIsFollowing(true);
-  };
-
-  // フォローを解除する
-  const handleUnfollow = async () => {
-    await axios.delete(`/unfollow/${userId}`);
-    setIsFollowing(false);
+  // フォロー/フォロー解除を切り替える
+  const handleToggleFollow = async () => {
+    if (isFollowing) {
+      await axios.delete(`/unfollow/${userId}`);
+    } else {
+      await axios.post(`/follow/${userId}`);
+    }
+    setIsFollowing((prevIsFollowing) => !prevIsFollowing);
   };
 
   // ユーザープロフィール情報が取得できるまでローディング表示
@@ -109,8 +107,7 @@ const UserProfile = () => {
           <UpdateButtonContainer>
             <FollowButton
               isFollowing={isFollowing}
-              handleFollow={handleFollow}
-              handleUnfollow={handleUnfollow}
+              handleToggleFollow={handleToggleFollow}
             />
           </UpdateButtonContainer>
         )}

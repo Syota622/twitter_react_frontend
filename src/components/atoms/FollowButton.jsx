@@ -11,8 +11,8 @@ const StyledButton = styled.button`
 `;
 
 // isFollowingがtrueの場合は「フォロー中」、falseの場合は「フォロー」を表示
-const FollowButton = ({ isFollowing, handleFollow, handleUnfollow }) => (
-  <StyledButton onClick={isFollowing ? handleUnfollow : handleFollow}>
+const FollowButton = ({ isFollowing, handleToggleFollow }) => (
+  <StyledButton onClick={handleToggleFollow}>
     {isFollowing ? "フォロー中" : "フォロー"}
   </StyledButton>
 );
