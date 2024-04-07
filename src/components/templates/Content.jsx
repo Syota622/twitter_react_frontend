@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import TweetsList from "../pages/TweetsList";
 import TweetDetail from "../pages/TweetDetail";
 import UserProfile from "../organisms/UserProfile";
+import Notifications from "../organisms/Notifications";
 
 const ContentContainer = styled.div`
   flex: 2;
@@ -20,6 +21,8 @@ const Content = () => {
         <Route path="/tweets/:tweetId" element={<TweetDetail />} />
         {/* プロフィール */}
         <Route path="/user/:userId" element={<UserProfile />} />
+        {/* 通知 */}
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
     </ContentContainer>
   );

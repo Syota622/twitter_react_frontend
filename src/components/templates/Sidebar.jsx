@@ -49,6 +49,7 @@ const Sidebar = () => {
     <SidebarContainer>
       <StyledLink to="/">ホーム</StyledLink>
       <StyledLink>メッセージ</StyledLink>
+      <StyledLink to="/notifications">通知</StyledLink>
       <StyledLink>設定</StyledLink>
       <StyledLink>ログアウト</StyledLink>
       {userId && <StyledLink to={`/user/${userId}`}>プロフィール</StyledLink>}
