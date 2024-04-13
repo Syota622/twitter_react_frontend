@@ -31,6 +31,7 @@ const GroupDetail = () => {
   }, [groupId]);
 
   const handlePostMessage = async () => {
+    // メッセージが空の場合は何もしない
     if (newMessage.trim() === "") {
       return;
     }
@@ -38,11 +39,12 @@ const GroupDetail = () => {
     const userId = localStorage.getItem("id"); // ログインユーザーのIDをlocalStorageから取得
 
     const response = await axios.post("/group-message", {
-      group_id: String(groupId), // group_idをstring型に変換
+      group_id: groupId, // グループIDを使用
       user_id: userId, // ログインユーザーのIDを使用
       message: newMessage,
     });
 
+    // メッセージを追加
     setGroup((prevGroup) => ({
       ...prevGroup,
       messages: [...prevGroup.messages, response.data],
