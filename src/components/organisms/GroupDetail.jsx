@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import styled from "styled-components";
-import InputField from "../atoms/InputField";
-import SubmitButton from "../atoms/SubmitButton";
+import MessageForm from "../molecules/MessageForm";
 
 const GroupDetailContainer = styled.div`
   padding: 20px;
@@ -26,7 +25,10 @@ const GroupDetail = () => {
   useEffect(() => {
     const fetchGroupMessages = async () => {
       const response = await axios.get(`/group-messages/${groupId}`);
-      setGroup({ name: "Group Name", messages: response.data });
+      setGroup({
+        name: "Group Name",
+        messages: response.data ? response.data : [], // response.dataが存在しない場合は空の配列を設定
+      });
     };
 
     fetchGroupMessages();
@@ -68,11 +70,11 @@ const GroupDetail = () => {
             <p>{msg.message}</p>
           </MessageItem>
         ))}
-      <InputField
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
+      <MessageForm
+        newMessage={newMessage}
+        setNewMessage={setNewMessage}
+        handlePostMessage={handlePostMessage}
       />
-      <SubmitButton onClick={handlePostMessage}>投稿</SubmitButton>
     </GroupDetailContainer>
   );
 };
