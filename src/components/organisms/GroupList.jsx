@@ -35,6 +35,7 @@ const GroupList = () => {
 
   return (
     <GroupListContainer>
+      {/* グループは、curlやpostmanから新規作成する */}
       <h1>グループ一覧</h1>
       {groups.map((group) => (
         <GroupItem key={group.id}>
