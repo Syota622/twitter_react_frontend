@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/axios"; // カスタムインスタンスをインポート
 import styled from "styled-components";
+import InputField from "../atoms/InputField";
+import SubmitButton from "../atoms/SubmitButton";
 
 const GroupDetailContainer = styled.div`
   padding: 20px;
@@ -66,12 +68,11 @@ const GroupDetail = () => {
             <p>{msg.message}</p>
           </MessageItem>
         ))}
-      <input
-        type="text"
+      <InputField
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
       />
-      <button onClick={handlePostMessage}>投稿</button>
+      <SubmitButton onClick={handlePostMessage}>投稿</SubmitButton>
     </GroupDetailContainer>
   );
 };
