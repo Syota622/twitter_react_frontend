@@ -48,7 +48,7 @@ const Sidebar = () => {
   return (
     <SidebarContainer>
       <StyledLink to="/">ホーム</StyledLink>
-      <StyledLink>メッセージ</StyledLink>
+      <StyledLink to="/groups">メッセージ</StyledLink>
       <StyledLink to="/notifications">通知</StyledLink>
       <StyledLink>設定</StyledLink>
       <StyledLink>ログアウト</StyledLink>
