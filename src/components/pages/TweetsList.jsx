@@ -95,13 +95,21 @@ const TweetsList = () => {
     }
   };
 
-  const handleBookmark = async (event, tweetId) => {
+  const handleBookmark = async (event, tweetId, isBookmarked) => {
     event.stopPropagation(); // イベントの伝播を停止
     event.preventDefault(); // デフォルトのイベントをキャンセル
     try {
       // ユーザーIDを取得し、数値型に変換
       const userId = Number(localStorage.getItem("id"));
-      await axios.post(`/bookmark`, { user_id: userId, tweet_id: tweetId });
+      if (isBookmarked) {
+        // ブックマークがすでに存在する場合は削除
+        await axios.delete(`/bookmark`, {
+          data: { user_id: userId, tweet_id: tweetId },
+        });
+      } else {
+        // ブックマークが存在しない場合は作成
+        await axios.post(`/bookmark`, { user_id: userId, tweet_id: tweetId });
+      }
       // ブックマークを作成または削除した後にツイート一覧を再取得
       const response = await axios.get(`/tweets`);
       setTweets(response.data.tweets);
@@ -145,7 +153,9 @@ const TweetsList = () => {
           <span style={{ marginLeft: "10px" }}>{tweet.like_count}</span>{" "}
           {/* ブックマークボタン */}
           <BookMarkButton
-            onClick={(event) => handleBookmark(event, tweet.id)}
+            onClick={(event) =>
+              handleBookmark(event, tweet.id, tweet.is_bookmarked)
+            }
             isBookmarked={tweet.is_bookmarked}
           />
         </TweetContainer>
