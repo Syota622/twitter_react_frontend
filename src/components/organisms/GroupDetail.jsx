@@ -26,7 +26,7 @@ const GroupDetail = () => {
     const fetchGroupMessages = async () => {
       const response = await axios.get(`/group-messages/${groupId}`);
       setGroup({
-        name: "Group Name",
+        name: response.data[0].group_id.Int32,
         messages: response.data ? response.data : [], // response.dataが存在しない場合は空の配列を設定
       });
     };
