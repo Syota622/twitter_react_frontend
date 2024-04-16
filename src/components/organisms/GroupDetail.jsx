@@ -24,7 +24,7 @@ const GroupDetail = () => {
 
   useEffect(() => {
     const fetchGroupMessages = async () => {
-      const response = await axios.get(`/group-messages/${groupId}`);
+      const response = await axios.get(`/group/${groupId}/messages`);
       setGroup({
         name: response.data[0].group_id.Int32,
         messages: response.data ? response.data : [], // response.dataが存在しない場合は空の配列を設定
@@ -42,7 +42,7 @@ const GroupDetail = () => {
 
     const userId = localStorage.getItem("id"); // ログインユーザーのIDをlocalStorageから取得
 
-    const response = await axios.post("/group-message", {
+    const response = await axios.post(`/group/${groupId}/messages`, {
       group_id: groupId, // グループIDを使用
       user_id: userId, // ログインユーザーのIDを使用
       message: newMessage,
