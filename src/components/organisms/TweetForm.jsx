@@ -25,7 +25,7 @@ const TweetForm = () => {
 
     // 画像アップロードとツイートの投稿を処理するAPIエンドポイントにリクエストを送信
     try {
-      await axios.post("/tweet", formData);
+      await axios.post("/tweets", formData);
       alert("ツイートが投稿されました！");
     } catch (error) {
       console.error("ツイートの投稿に失敗しました。", error);

@@ -36,7 +36,7 @@ const CommentModal = ({ isOpen, tweetId, onClose, onCommentPosted }) => {
     formData.append("comment", comment);
 
     try {
-      await axios.post("/comment", formData, {
+      await axios.post("/comments", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
