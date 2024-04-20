@@ -7,6 +7,7 @@ import UserProfile from "../organisms/UserProfile";
 import Notifications from "../organisms/Notifications";
 import GroupList from "../organisms/GroupList";
 import GroupDetail from "../organisms/GroupDetail";
+import WithDrawal from "../organisms/WithDrawal";
 
 const ContentContainer = styled.div`
   flex: 2;
@@ -29,6 +30,8 @@ const Content = () => {
         <Route path="/groups" element={<GroupList />} />
         {/* グループ詳細 */}
         <Route path="/group/:groupId" element={<GroupDetail />} />
+        {/* 退会 */}
+        <Route path="/withdrawal" element={<WithDrawal />} />
       </Routes>
     </ContentContainer>
   );
