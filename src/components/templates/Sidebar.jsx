@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TweetForm from "../organisms/TweetForm";
+import WithDrawal from "../organisms/WithDrawal";
+import SidebarStyledLink from "../atoms/SidebarStyledLink";
 
 const SidebarContainer = styled.div`
   flex: 1;
@@ -10,22 +11,6 @@ const SidebarContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   margin-right: 50px;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  display: block;
-  padding: 10px;
-  background-color: #1da1f2;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  text-align: center;
-
-  &:hover {
-    background-color: #0d8ed9;
-  }
 `;
 
 // ユーザーIDをlocalStorageから取得する関数
@@ -47,12 +32,17 @@ const Sidebar = () => {
 
   return (
     <SidebarContainer>
-      <StyledLink to="/">ホーム</StyledLink>
-      <StyledLink to="/groups">メッセージ</StyledLink>
-      <StyledLink to="/notifications">通知</StyledLink>
-      <StyledLink>設定</StyledLink>
-      <StyledLink>ログアウト</StyledLink>
-      {userId && <StyledLink to={`/user/${userId}`}>プロフィール</StyledLink>}
+      <SidebarStyledLink to="/">ホーム</SidebarStyledLink>
+      <SidebarStyledLink to="/groups">メッセージ</SidebarStyledLink>
+      <SidebarStyledLink to="/notifications">通知</SidebarStyledLink>
+      <SidebarStyledLink>設定</SidebarStyledLink>
+      <SidebarStyledLink>ログアウト</SidebarStyledLink>
+      {userId && (
+        <SidebarStyledLink to={`/user/${userId}`}>
+          プロフィール
+        </SidebarStyledLink>
+      )}
+      <WithDrawal userId={userId} />
       <TweetForm />
     </SidebarContainer>
   );
